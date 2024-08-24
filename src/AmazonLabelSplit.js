@@ -223,7 +223,7 @@ const AmazonLabelSplit = () => {
                     variant="contained"
                     color="primary"
                     href={downloadUrl}
-                    download={`Meesho-labels-${getFormattedDateTime()}.pdf`}
+                    download={`Amazon-labels-${getFormattedDateTime()}.pdf`}
                   >
                     Download
                   </Button>

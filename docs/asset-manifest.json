@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/LabelMaker/static/css/main.450e8ed9.css",
-    "main.js": "/LabelMaker/static/js/main.5e3cf0ac.js",
+    "main.js": "/LabelMaker/static/js/main.8771ab3d.js",
     "index.html": "/LabelMaker/index.html",
     "main.450e8ed9.css.map": "/LabelMaker/static/css/main.450e8ed9.css.map",
-    "main.5e3cf0ac.js.map": "/LabelMaker/static/js/main.5e3cf0ac.js.map"
+    "main.8771ab3d.js.map": "/LabelMaker/static/js/main.8771ab3d.js.map"
   },
   "entrypoints": [
     "static/css/main.450e8ed9.css",
-    "static/js/main.5e3cf0ac.js"
+    "static/js/main.8771ab3d.js"
   ]
 }
