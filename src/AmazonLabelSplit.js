@@ -106,14 +106,16 @@ const AmazonLabelSplit = () => {
 
   const processPDF = async (file) => {
     let extractedData = [];
-    let newTextOnPDF = await pdfToText(file)
+    debugger;
+    await pdfToText(file)
       .then((text) => {
         debugger;
         // Split the text by pages if possible, or handle it manually
         const pages = text.split("Tax Invoice/Bill of Supply/Cash Memo"); // Assuming form feed \f is used to separate pages
-        // debugger;
+        debugger;
         //console.log(pages);
         pages.slice(1).forEach((pageText, index) => {
+          debugger;
           console.log("=====================================");
           extractedData.push(extractTextBetween(pageText));
           //console.log(extractTextBetween(pageText));
@@ -135,8 +137,6 @@ const AmazonLabelSplit = () => {
     const totalPages = pdfDoc.getPageCount();
 
     for (let i = 0; i < totalPages; i++) {
-      let newTextOnPDF = "Still Processing";
-      // Only process odd pages
       if (i % 2 === 0) {
         const page = pdfDoc.getPage(i);
         const { width, height } = page.getSize();
@@ -154,12 +154,15 @@ const AmazonLabelSplit = () => {
         });
 
         // Add the "This is SAMPLE TEXT" in the middle of the page
-        newPage.drawText(extractedData[i / 2], {
-          x: 50, // Adjust this value to center the text
-          y: 170,
-          size: 12,
-          color: rgb(0, 0, 0), // Red color for visibility
-        });
+        newPage.drawText(
+          extractedData[i / 2] || "NOT PROCESSED ! UPLOAD AGAIN",
+          {
+            x: 50, // Adjust this value to center the text
+            y: 170,
+            size: 12,
+            color: rgb(0, 0, 0), // Red color for visibility
+          }
+        );
       }
     }
 
@@ -231,19 +234,6 @@ const AmazonLabelSplit = () => {
         </Box>
       </Container>
     </ThemeProvider>
-  );
-
-  return (
-    <div style={{ padding: "20px" }}>
-      <h2>PDF Processor</h2>
-      <input type="file" accept="application/pdf" onChange={handleFileChange} />
-      {fileName && <p>Processing file: {fileName}</p>}
-      {downloadUrl && (
-        <a href={downloadUrl} download={`Processed_${fileName}`}>
-          Download Processed PDF
-        </a>
-      )}
-    </div>
   );
 };
 
