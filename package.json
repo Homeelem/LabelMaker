@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "main": "src/index.js",
-  "homepage": "https://symmetriccurve.github.io/label-generator",
+  "homepage": "https://homeelem.github.io/LabelMaker",
   "dependencies": {
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",

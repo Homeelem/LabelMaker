@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/label-generator/static/css/main.450e8ed9.css",
-    "main.js": "/label-generator/static/js/main.372f4910.js",
-    "index.html": "/label-generator/index.html",
-    "main.450e8ed9.css.map": "/label-generator/static/css/main.450e8ed9.css.map",
-    "main.372f4910.js.map": "/label-generator/static/js/main.372f4910.js.map"
+    "main.css": "/LabelMaker/static/css/main.450e8ed9.css",
+    "main.js": "/LabelMaker/static/js/main.372f4910.js",
+    "index.html": "/LabelMaker/index.html",
+    "main.450e8ed9.css.map": "/LabelMaker/static/css/main.450e8ed9.css.map",
+    "main.372f4910.js.map": "/LabelMaker/static/js/main.372f4910.js.map"
   },
   "entrypoints": [
     "static/css/main.450e8ed9.css",
