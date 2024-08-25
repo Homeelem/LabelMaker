@@ -53,7 +53,8 @@ function generateLabelText(
   productQty
 ) {
   const shortProductName = fullProductDescription.slice(0, 50).slice(4);
-  return `SKU:${shortProductDetails}|P:${shortProductName}|Q:${productQty}`.trim();
+  return `SKU:${shortProductDetails}|P:${shortProductName}
+ Q:${productQty}`.trim();
 }
 
 function extractTextBetween(input) {
@@ -159,7 +160,7 @@ const AmazonLabelSplit = () => {
           {
             x: 50, // Adjust this value to center the text
             y: 170,
-            size: 12,
+            size: 13,
             color: rgb(0, 0, 0), // Red color for visibility
           }
         );
