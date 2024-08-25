@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PDFDocument, rgb } from "pdf-lib";
+import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
 import pdfToText from "react-pdftotext";
 
 import {
@@ -28,9 +28,14 @@ const theme = createTheme({
 });
 
 function extractProductQuantity(input) {
+  let QuantityIndex = 2;
+  if (input.indexOf("Discount") > -1) {
+    QuantityIndex = 3;
+  }
+
   const match = input.match(/HSN\s*(.*?)\s*IGST/);
   if (match) {
-    return match[1].replace(/\s+/g, " ").trim().split(" ")[2];
+    return match[1].replace(/\s+/g, " ").trim().split(" ")[QuantityIndex];
   }
   return null; //
 }
@@ -107,20 +112,12 @@ const AmazonLabelSplit = () => {
 
   const processPDF = async (file) => {
     let extractedData = [];
-    debugger;
     await pdfToText(file)
       .then((text) => {
-        debugger;
         // Split the text by pages if possible, or handle it manually
         const pages = text.split("Tax Invoice/Bill of Supply/Cash Memo"); // Assuming form feed \f is used to separate pages
-        debugger;
-        //console.log(pages);
         pages.slice(1).forEach((pageText, index) => {
-          debugger;
-          console.log("=====================================");
           extractedData.push(extractTextBetween(pageText));
-          //console.log(extractTextBetween(pageText));
-          console.log("=====================================");
         });
       })
       .catch((error) => {
@@ -128,12 +125,10 @@ const AmazonLabelSplit = () => {
         return "ERROR FETCHING DETAILS";
       });
 
-    console.log(extractedData);
-    debugger;
-
     const arrayBuffer = await file.arrayBuffer();
     const pdfDoc = await PDFDocument.load(arrayBuffer);
     const newPdfDoc = await PDFDocument.create();
+    const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
     const totalPages = pdfDoc.getPageCount();
 
@@ -146,24 +141,22 @@ const AmazonLabelSplit = () => {
         const newPage = newPdfDoc.addPage([width, height]);
         const embeddedPage = await newPdfDoc.embedPage(page);
 
-        debugger;
         newPage.drawPage(embeddedPage, {
           x: 0,
           y: 0,
+          font: font,
           width,
           height,
         });
 
         // Add the "This is SAMPLE TEXT" in the middle of the page
-        newPage.drawText(
-          extractedData[i / 2] || "NOT PROCESSED ! UPLOAD AGAIN",
-          {
-            x: 50, // Adjust this value to center the text
-            y: 170,
-            size: 13,
-            color: rgb(0, 0, 0), // Red color for visibility
-          }
-        );
+        newPage.drawText(extractedData[i / 2].replace("₹", "Rs") || "", {
+          x: 50, // Adjust this value to center the text
+          y: 170,
+          font: font,
+          size: 13,
+          color: rgb(0, 0, 0), // Red color for visibility
+        });
       }
     }
 
